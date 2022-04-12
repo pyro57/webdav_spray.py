@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from webdav3.client import Client
 import sys
 users = {}
@@ -23,6 +24,13 @@ def dirbrute(wd_address):
 
 
 def main():
+    usage = '''
+USAGE:
+python webdav_spray.py command wd_address users_file(optional), password_to_spray(optional)
+Commands:
+  spray = spray a password
+  dirbrute = brute force directories in the webdav server    
+    '''
     if len(sys.argv) == 3:
         command = sys.argv[1]
         wd_address = sys.argv[2]
@@ -46,15 +54,8 @@ def main():
         elif command == 'dirbrute':
             dirbrute(wd_address)
         else:
-            print('''
-Unknown Command!
-
-USAGE:
-python webdav_spray.py command wd_address users_file(optional), password_to_spray(optional)
-Commands:
-  spray = spray a password
-  dirbrute = brute force directories in the webdav server
-            ''')
+            print("UNKNOWN COMMAND")
+            print(usage)
 
     elif len(sys.argv) == 5:
         command = sys.argv[1]
@@ -67,23 +68,10 @@ Commands:
         elif command == 'dirbrute':
             dirbrute(wd_address)
         else:
-            print('''
-Unknown Command!
-
-USAGE:
-python webdav_spray.py command wd_address users_file(optional), password_to_spray(optional)
-Commands:
-  spray = spray a password
-  dirbrute = brute force directories in the webdav server
-            ''')
+            print('Unknown Command!')
+            print(usage)
     else:
-        print('''
-USAGE:
-python webdav_spray.py command wd_address users_file(optional), password_to_spray(optional)
-Commands:
-  spray = spray a password
-  dirbrute = brute force directories in the webdav server
-        ''')
+        print(usage)
     if len(users) != 0:
         for user in users.keys():
             print("Password found!  {}:{}".format(user, users[user]))
